@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --configuration production",
+    "build": "ng build --prod",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -31,7 +31,6 @@
     "@ngrx/store": "^20.0.1",
     "@ngrx/store-devtools": "^20.0.1",
     "bootstrap": "^5.3.8",
-    "netlify-cli": "^23.5.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
