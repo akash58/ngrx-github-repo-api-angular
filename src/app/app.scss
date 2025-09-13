@@ -1,0 +1,25 @@
+/* Sidebar styles */
+.sidebar {
+    width: 250px;
+    min-height: 100vh;
+  }
+  
+  .sidebar .nav-link.active {
+    background-color: #323f4c !important;
+    color: #fff !important;
+    border-radius: 5px;
+  }
+  
+  /* Responsive adjustment: full width on small screens */
+  @media (max-width: 991px) {
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1050;
+      height: 100vh;
+    }
+  }
+  .position-sticky {
+    width: 250px !important;
+  }

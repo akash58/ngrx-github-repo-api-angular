@@ -1,4 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, isDevMode } from '@angular/core';
+import { Store, StoreModule } from '@ngrx/store';
+import * as GithubActions from '../app/store/github.actions';
+import { ThemeService } from './service/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +11,7 @@ import { Component, signal } from '@angular/core';
 })
 export class App {
   protected readonly title = signal('ngrx-github-repo-angular');
+  constructor(private store: Store, private themeService: ThemeService) {
+    this.themeService.applyTheme();
+  }
 }

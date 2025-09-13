@@ -1,0 +1,24 @@
+<h2>Settings</h2>
+
+<div class="mb-4">
+  <h4>Profile</h4>
+  <div class="mb-3">
+    <label>Name</label>
+    <input type="text" class="form-control" [(ngModel)]="name">
+  </div>
+  <div class="mb-3">
+    <label>Email</label>
+    <input type="email" class="form-control" [(ngModel)]="email">
+  </div>
+</div>
+
+<div>
+  <h4>Preferences</h4>
+  <div class="mb-3">
+    <label>Theme</label>
+    <select class="form-select" [(ngModel)]="theme" (change)="onThemeChange($event)">
+      <option value="light">Light</option>
+      <option value="dark">Dark</option>
+    </select>
+  </div>
+</div>

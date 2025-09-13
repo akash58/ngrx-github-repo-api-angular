@@ -1,0 +1,72 @@
+<h2>Explore</h2>
+
+<div class="d-flex mb-3">
+  <input [(ngModel)]="query" type="text" class="form-control me-2" placeholder="Search repositories" (input)="searchRepos()">
+</div>
+<div class="d-flex align-items-center justify-content-between mb-3">
+  <div class="d-flex">
+    <div class="me-3">
+      <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedLanguage" (ngModelChange)="searchRepos()">
+        <option value="" selected>Select language</option>
+        <option *ngFor="let lang of languages" [value]="lang">{{ lang }}</option>
+      </select>
+    </div>
+    <div>
+      <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedStar" (ngModelChange)="searchRepos()">
+        <option value="" selected>Select stars</option>
+        <option *ngFor="let star of stars" [value]="star">{{ star }}</option>
+      </select>
+    </div>
+  </div>
+  <div>
+    Filters <i class="fa-solid fa-filter ms-1"></i>
+  </div>
+</div>
+
+<div class="row"  *ngFor="let repoData of repos$ | async" >
+    <div class="col-4 mb-3" *ngFor="let repo of repoData">
+        <div class="card p-3 shadow-sm">
+            <div class="height-card-class">
+            <div class="d-flex">
+                <div>
+                <img [src]="repo?.owner?.avatar_url" class="rounded me-2" style="width: 25px;" alt="Avatar" />
+                </div>
+                <div>
+                <h5>{{(repo?.full_name?.length>32)? (repo.full_name | slice:0:32)+'...':(repo.full_name)}}</h5>
+                </div>
+            </div>
+            <p>{{(repo?.description?.length>134)? (repo.description | slice:0:134)+'...':(repo.description)}}</p>
+            </div>
+            <div class="d-flex justify-content-between align-items-center height-class">
+            <div class="d-flex align-items-center">
+                <div class="me-2" *ngIf="repo?.language">
+                <span class="dot dot-bg-grey" [ngClass]="{
+                    'dot-bg-red': repo.language === 'TypeScript',
+                    'dot-bg-yellow': repo.language === 'JavaScript',
+                    'dot-bg-blue': repo.language === 'Python',
+                    'dot-bg-green': repo.language === 'Dart'
+                }"></span><span>{{ repo.language }}</span>
+                </div>
+                <div *ngIf="repo?.stargazers_count" class="me-2">
+                <span><i class="fa-solid fa-star text-font-size-14"></i>{{ repo.stargazers_count | shortNumber }}</span>
+                </div>
+                <div *ngIf="repo?.forks_count">
+                <span>{{ repo.forks_count | shortNumber }}</span>
+                </div>
+            </div>
+            <div>
+                <button *ngIf="!bookmarkService.isBookmarked(repo.id)"
+                class="btn btn-outline-secondary btn-sm"
+                (click)="bookmarkService.addBookmark(repo)">
+                🔖 Bookmark
+                </button>
+                <button *ngIf="bookmarkService.isBookmarked(repo.id)"
+                class="btn btn-outline-success btn-sm">
+                ✅ Bookmarked
+                </button>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
