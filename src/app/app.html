@@ -1,13 +1,4 @@
-<!-- <div class="input-group mb-3">
-  <input type="text" [(ngModel)]="query" class="form-control" placeholder="Search repositories">
-  <button class="btn btn-primary" (click)="search()">Search</button>
-</div>
-
-<router-outlet /> -->
-
-
-<div class="d-flex">
-  <!-- Sidebar -->
+<!-- <div class="d-flex">
   <nav id="sidebarMenu" class="d-lg-block sidebar collapse bg-dark text-white">
     <div class="position-sticky p-3">
       <h5 class="mb-4">GitHub Explorer</h5>
@@ -31,16 +22,70 @@
     </div>
   </nav>
 
-  <!-- Main Content -->
-  <div class="flex-grow-1 p-4">
-    <!-- Toggle Button for Mobile -->
+  <div class="p-3 w-100">
     <button class="btn btn-outline-secondary d-lg-none mb-3"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#sidebarMenu"
-            aria-controls="sidebarMenu"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#sidebarMenu"
+      aria-controls="sidebarMenu"
+      aria-expanded="false"
+      aria-label="Toggle navigation">
+      ☰ Menu
+    </button>
+    <router-outlet></router-outlet>
+  </div>
+</div> -->
+
+
+<div class="d-flex">
+  <!-- Sidebar -->
+  <nav
+    id="sidebarMenu"
+    class="sidebar bg-dark text-white"
+    [class.collapse]="!isSidebarOpen && !isLargeScreen"
+    [class.show]="isSidebarOpen || isLargeScreen"
+    [attr.aria-expanded]="(isSidebarOpen || isLargeScreen)"
+  >
+    <div class="position-sticky p-3">
+      <h5 class="mb-4">GitHub Explorer</h5>
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a routerLink="/explore" routerLinkActive="active" class="nav-link text-white">
+            <i class="fa-solid fa-magnifying-glass me-1 text-font-size-16"></i> Explore
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/bookmarks" routerLinkActive="active" class="nav-link text-white">
+            <i class="fa-regular fa-bookmark me-1 text-font-size-16"></i> Bookmarks
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/settings" routerLinkActive="active" class="nav-link text-white">
+            <i class="fa-solid fa-gear me-1 text-font-size-16"></i> Settings
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- overlay backdrop (only on small screens when sidebar open) -->
+  <div
+    class="backdrop"
+    *ngIf="isSidebarOpen && !isLargeScreen"
+    (click)="closeSidebarOnBackdrop()"
+    aria-hidden="true"
+  ></div>
+
+  <!-- Main Content -->
+  <div class="main-content p-3 card-w-percent">
+    <!-- Toggle Button for Mobile & Tablet -->
+    <button
+      class="btn btn-outline-secondary d-lg-none mb-3"
+      type="button"
+      (click)="toggleSidebar()"
+      [attr.aria-expanded]="isSidebarOpen"
+      aria-label="Toggle navigation"
+    >
       ☰ Menu
     </button>
 

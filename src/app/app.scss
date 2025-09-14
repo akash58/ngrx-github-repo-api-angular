@@ -1,25 +1,99 @@
-/* Sidebar styles */
+// /* Sidebar styles */
+// .sidebar {
+//     width: 250px;
+//     min-height: 100vh;
+//   }
+  
+//   .sidebar .nav-link.active {
+//     background-color: #323f4c !important;
+//     color: #fff !important;
+//     border-radius: 5px;
+//   }
+  
+//   /* Responsive adjustment: full width on small screens */
+//   @media (max-width: 991px) {
+//     .sidebar {
+//       position: fixed;
+//       top: 0;
+//       left: 0;
+//       z-index: 1050;
+//       height: 100vh;
+//     }
+//   }
+//   .position-sticky {
+//     width: 250px !important;
+//   }
+
+/* Width of the sidebar */
+$sidebar-width: 260px;
+
+/* Sidebar base */
 .sidebar {
-    width: 250px;
-    min-height: 100vh;
+  width: $sidebar-width;
+  transition: transform 0.25s ease, visibility 0.25s ease;
+}
+
+.card-w-percent{
+  width: 99%;
+}
+
+/* Desktop / large screens: sidebar fixed on the left, content pushed */
+@media (min-width: 992px) {
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    height: 100vh;
+    transform: none !important; /* visible */
+    z-index: 1045;
   }
-  
-  .sidebar .nav-link.active {
-    background-color: #323f4c !important;
-    color: #fff !important;
-    border-radius: 5px;
+
+  .main-content {
+    margin-left: $sidebar-width;
   }
-  
-  /* Responsive adjustment: full width on small screens */
-  @media (max-width: 991px) {
-    .sidebar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 1050;
-      height: 100vh;
-    }
+
+  .backdrop {
+    display: none;
   }
-  .position-sticky {
-    width: 250px !important;
+}
+
+/* Small / tablet / mobile: sidebar overlays from left */
+@media (max-width: 991.98px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: 100vh;
+    width: $sidebar-width;
+    transform: translateX(-100%); /* hidden by default */
+    z-index: 1045;
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.12);
   }
+
+  /* When visible, slide in */
+  .sidebar.show {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 1040;
+  }
+
+  .card-w-percent{
+    width: calc(100% - 7vw);
+  }
+}
+
+/* optional small visual tweaks */
+.sidebar .nav-link {
+  padding: 0.5rem 0.25rem;
+}
